@@ -1,0 +1,278 @@
+import React, { useState, useRef } from 'react';
+import { AlertTriangle, Clock, Moon, AlertCircle, Sun, Pill, Info, ChevronRight, CheckCircle2 } from 'lucide-react';
+
+const DizzinessSOP = () => {
+  const [activeTab, setActiveTab] = useState('all');
+  const section1Ref = useRef(null);
+  const section2Ref = useRef(null);
+
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-800 pb-12 font-sans selection:bg-rose-100">
+      {/* Header Area */}
+      <header className="bg-white sticky top-0 z-10 shadow-sm border-b border-slate-100">
+        <div className="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+              <span className="bg-rose-500 text-white p-1 rounded-md"><Pill size={18} /></span>
+              眩暈急救 SOP
+            </h1>
+            <p className="text-xs text-slate-500 mt-1">小貓仔用藥指南</p>
+          </div>
+          <div className="bg-rose-50 text-rose-600 text-xs font-bold px-2 py-1 rounded border border-rose-100">
+            急救專用
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-md mx-auto px-4 py-6 space-y-6">
+        
+        {/* Quick Triage Buttons */}
+        <div className="grid grid-cols-2 gap-3">
+          <button 
+            onClick={() => scrollToSection(section1Ref)}
+            className="flex flex-col items-center justify-center p-4 bg-blue-50 border-2 border-blue-100 rounded-xl active:bg-blue-100 transition-colors"
+          >
+            <Moon className="text-blue-600 mb-2" size={28} />
+            <span className="font-bold text-blue-900">頭暈+恐慌</span>
+            <span className="text-xs text-blue-600 mt-1">第一組 (亞東)</span>
+          </button>
+          
+          <button 
+            onClick={() => scrollToSection(section2Ref)}
+            className="flex flex-col items-center justify-center p-4 bg-emerald-50 border-2 border-emerald-100 rounded-xl active:bg-emerald-100 transition-colors"
+          >
+            <AlertCircle className="text-emerald-600 mb-2" size={28} />
+            <span className="font-bold text-emerald-900">狂吐+膽汁</span>
+            <span className="text-xs text-emerald-600 mt-1">第二組 (聯合)</span>
+          </button>
+        </div>
+
+        {/* Core Rules */}
+        <div className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-slate-800">
+          <h3 className="font-bold text-slate-800 mb-3 flex items-center">
+            <Info size={18} className="mr-2" />
+            核心原則
+          </h3>
+          <ul className="space-y-2 text-sm">
+            <li className="flex items-start">
+              <span className="bg-slate-100 text-slate-600 rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5 shrink-0">1</span>
+              <span><strong>判斷狀況：</strong>想睡避難選第一組，吐到不行選第二組。</span>
+            </li>
+            <li className="flex items-start">
+              <span className="bg-slate-100 text-slate-600 rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5 shrink-0">2</span>
+              <span><strong>間隔限制：</strong>若換組吃，一定要隔 <span className="text-rose-600 font-bold">4~6 小時</span>。</span>
+            </li>
+            <li className="flex items-start">
+              <span className="bg-slate-100 text-slate-600 rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5 shrink-0">3</span>
+              <span><strong>送醫時機：</strong>吐膽汁、無法喝水、意識不清。</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Situation 1 */}
+        <div ref={section1Ref} className="bg-white rounded-2xl shadow-md overflow-hidden border border-slate-100 scroll-mt-24">
+          <div className="bg-blue-600 px-4 py-3 flex items-center justify-between text-white">
+            <h2 className="font-bold text-lg flex items-center">
+              <Moon size={20} className="mr-2" /> 狀況一：天旋地轉
+            </h2>
+            <span className="text-xs bg-blue-500 px-2 py-0.5 rounded">亞東藥單</span>
+          </div>
+          <div className="p-5">
+            <p className="text-slate-600 mb-4 text-sm leading-relaxed">
+              天花板在轉、心慌、脖子肩膀僵硬，但嘔吐還不算太嚴重。
+            </p>
+            
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-4">
+              <div className="text-xs text-blue-500 font-bold mb-1 uppercase tracking-wide">建議用藥</div>
+              <div className="font-bold text-blue-900 text-lg">Erispan + Meclizine</div>
+              <div className="text-xs text-blue-700 mt-1">0.25mg + 25mg</div>
+            </div>
+
+            <div className="flex items-start gap-3 bg-slate-50 p-3 rounded-lg">
+              <div className="mt-1 text-blue-600"><CheckCircle2 size={18} /></div>
+              <div className="text-sm text-slate-700">
+                <strong>策略：讓大腦關機。</strong><br/>
+                吃完後直接關燈躺平睡覺。睡醒一覺（約 4-6 小時）通常會好一半。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Warning Banner */}
+        <div className="bg-rose-50 border-2 border-rose-100 border-dashed rounded-xl p-4 flex flex-col items-center text-center">
+          <div className="bg-rose-100 text-rose-600 p-2 rounded-full mb-2">
+            <AlertTriangle size={24} />
+          </div>
+          <h3 className="text-rose-700 font-bold text-lg">絕對禁止混吃！</h3>
+          <p className="text-rose-600 text-sm mt-1">
+            第一組的 <b>Erispan</b> 與第二組的 <b>Novamin</b> 都有強烈鎮靜效果。
+          </p>
+          <div className="mt-2 text-xs text-rose-800 bg-rose-100 px-3 py-1 rounded-full">
+            混吃後果：叫不醒、血壓過低
+          </div>
+        </div>
+
+        {/* Situation 2 */}
+        <div ref={section2Ref} className="bg-white rounded-2xl shadow-md overflow-hidden border border-slate-100 scroll-mt-24">
+          <div className="bg-emerald-600 px-4 py-3 flex items-center justify-between text-white">
+            <h2 className="font-bold text-lg flex items-center">
+              <AlertCircle size={20} className="mr-2" /> 狀況二：嚴重噴射吐
+            </h2>
+            <span className="text-xs bg-emerald-500 px-2 py-0.5 rounded">聯合藥單</span>
+          </div>
+          <div className="p-5">
+            <p className="text-slate-600 mb-4 text-sm leading-relaxed">
+              嘔吐是主角，抱著馬桶狂吐，連喝水都吐，甚至吐出膽汁。
+            </p>
+            
+            <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-3 mb-4">
+              <div className="text-xs text-emerald-600 font-bold mb-1 uppercase tracking-wide">建議用藥</div>
+              <div className="font-bold text-emerald-900 text-lg">Novamin + Cephadol</div>
+              <div className="text-xs text-emerald-700 mt-1">5mg + 25mg (Nilasen 先不用吃)</div>
+            </div>
+
+            <div className="flex items-start gap-3 bg-slate-50 p-3 rounded-lg">
+              <div className="mt-1 text-emerald-600"><CheckCircle2 size={18} /></div>
+              <div className="text-sm text-slate-700">
+                <strong>策略：止吐第一！</strong><br/>
+                Novamin 是急診級止吐藥，先讓身體能留住水分最重要。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Situation 3 & 4 Grid */}
+        <div className="grid gap-4">
+           {/* Situation 3 */}
+          <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+            <h3 className="font-bold text-slate-800 mb-2 flex items-center">
+              <Clock className="text-amber-500 mr-2" size={20} />
+              吃完藥還在吐？
+            </h3>
+            <div className="text-sm text-slate-600 space-y-2">
+              <p>🕒 <strong>算時間：</strong>必須等 4~6 小時才能吃第二組。</p>
+              <p>🚑 <strong>急診：</strong>若無法喝水有脫水風險，別再餵藥，直接去急診！</p>
+            </div>
+          </div>
+
+          {/* Situation 4 */}
+          <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+            <h3 className="font-bold text-slate-800 mb-2 flex items-center">
+              <Sun className="text-indigo-500 mr-2" size={20} />
+              風暴過後的保養
+            </h3>
+            <div className="text-sm text-slate-600 mb-3">
+              不轉了，但走路浮浮的，像踩在棉花上。
+            </div>
+            <div className="bg-indigo-50 text-indigo-800 px-3 py-2 rounded font-bold text-center mb-2">
+              單吃：Nilasen (Betahistine)
+            </div>
+            <p className="text-xs text-slate-500 text-center">
+              改善內耳循環。此時停吃 Erispan 以免腦袋昏沉。
+            </p>
+          </div>
+        </div>
+
+        {/* Medicine Table */}
+        <div className="mt-8 px-1">
+          <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3 ml-1">
+            💊 藥物速查表 (手機全視窗設計)
+          </h3>
+          
+          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-slate-200">
+            <table className="w-full table-fixed border-collapse">
+              <thead className="bg-slate-50 text-slate-600 border-b border-slate-200">
+                <tr className="text-xs">
+                  <th className="w-[28%] p-2 font-bold text-left">藥名/來源</th>
+                  <th className="w-[34%] p-2 font-bold text-left">主要作用</th>
+                  <th className="w-[38%] p-2 font-bold text-left">備註/副作用</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {/* 亞東組 */}
+                <tr className="align-top">
+                  <td className="p-2">
+                    <div className="font-bold text-slate-800 break-words text-sm">Erispan</div>
+                    <div className="text-[10px] text-blue-500 font-medium">亞東醫院</div>
+                  </td>
+                  <td className="p-2 text-xs text-slate-600 leading-relaxed">
+                    強迫關機、脖子緊、極度焦慮。
+                  </td>
+                  <td className="p-2 text-xs">
+                    <span className="text-rose-500 font-bold">🚨 禁開車</span>
+                    <div className="text-slate-400 mt-1">強烈嗜睡</div>
+                  </td>
+                </tr>
+                
+                <tr className="align-top">
+                  <td className="p-2 text-sm">
+                    <div className="font-bold text-slate-800 break-words">Meclizine</div>
+                    <div className="text-[10px] text-blue-500 font-medium">亞東醫院</div>
+                  </td>
+                  <td className="p-2 text-xs text-slate-600 leading-relaxed">
+                    輕微暈車感、預防暈車。
+                  </td>
+                  <td className="p-2 text-xs text-slate-500">
+                    口乾、輕微嗜睡。
+                  </td>
+                </tr>
+
+                {/* 聯合組 */}
+                <tr className="align-top bg-slate-50/30">
+                  <td className="p-2 text-sm">
+                    <div className="font-bold text-slate-800 break-words">Novamin</div>
+                    <div className="text-[10px] text-green-600 font-medium">聯合醫院</div>
+                  </td>
+                  <td className="p-2 text-xs text-slate-600 leading-relaxed font-semibold">
+                    強力止吐、壓制噴射嘔吐。
+                  </td>
+                  <td className="p-2 text-xs">
+                    <span className="text-amber-600 font-bold">⚠️ 禁混藥</span>
+                    <div className="text-slate-400 mt-1">極嗜睡</div>
+                  </td>
+                </tr>
+
+                <tr className="align-top">
+                  <td className="p-2 text-sm">
+                    <div className="font-bold text-slate-800 break-words">Cephadol</div>
+                    <div className="text-[10px] text-green-600 font-medium">聯合醫院</div>
+                  </td>
+                  <td className="p-2 text-xs text-slate-600 leading-relaxed">
+                    一般眩暈、內耳障礙。
+                  </td>
+                  <td className="p-2 text-xs text-slate-500">
+                    較不嗜睡，<br/>工作可用。
+                  </td>
+                </tr>
+
+                <tr className="align-top">
+                  <td className="p-2 text-sm">
+                    <div className="font-bold text-slate-800 break-words">Nilasen</div>
+                    <div className="text-[10px] text-green-600 font-medium">聯合醫院</div>
+                  </td>
+                  <td className="p-2 text-xs text-slate-600 leading-relaxed">
+                    通血路、消內耳水腫。
+                  </td>
+                  <td className="p-2 text-xs text-indigo-600">
+                    最溫和保養，<br/>建議飯後吃。
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-[10px] text-slate-400 mt-2 ml-1 italic">警告：第一組的 Erispan 與第二組的 Novamin 都有強烈鎮靜效果，不可混吃</p>
+        </div>
+      </main>
+
+      <footer className="text-center text-slate-400 text-xs py-6 pb-8">
+        <p>本頁面僅供急救參考，用藥請遵循醫囑</p>
+      </footer>
+    </div>
+  );
+};
+
+export default DizzinessSOP;
